@@ -1,10 +1,11 @@
 <html>
     <head>
-        <title>JavaScript Tips & Trics</title>
+        <title>JavaScript Tricks</title>
     </head>
 
     <body>
-      <h1>All is in the browser console. Open it up.</h1>
+      <h1>Execute in Console</h1>
+	  
         <script>
             const { log } = console;
             // 1. No Concatenation use Template string
@@ -197,6 +198,265 @@
                 log(message);
                 document.body.innerHTML = message;
             }
+            
+            
+            // 17. Destructure and pick a property
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const { name } = user;
+    console.log(name);
+}
+
+// 18. Declaration Gotcha
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    { name  } = user // Uncaught SyntaxError: Unexpected token '='
+
+    let name;
+    { name  } = user; // user // Uncaught SyntaxError: Unexpected token '='
+
+    ({ name  } = user)
+    console.log(name); // Alex
+
+}
+
+// 19. Desctructure and pick multiple properties
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const { name, age } = user;
+    console.log(name, age);
+}
+
+// 20. Assign new variable and default value
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+    const {name, age, salary=123455} = user;
+    console.log(name, age, salary)
+}
+
+// 21. Destructure and add aliases
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const { address: permanentAddress } = user;
+    console.log(permanentAddress);
+}
+
+// 22. Destructuring nested objects
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43,
+        'department':{
+            'name': 'Sales',
+            'Shift': 'Morning',
+            'address': {
+                'city': 'Bangalore',
+                'street': '7th Residency Rd',
+                'zip': 560001
+            }
+        }
+    }
+
+    const { department } = user; // {name: "Sales", Shift: "Morning", address: {…}}
+
+    const { department: { address } } = user; // {city: "Bangalore", street: "7th Residency Rd", zip: 560001}
+
+    const { department: { address: { city } } } = user; // Bangalore
+}
+
+// 23. Dynamic name property
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const getValue = key => {
+        const { [key]: returnValue } = user;   
+        return returnValue;
+    }
+
+    getValue('name') // Alex's
+    getValue('age') // 43
+}
+
+// 24. Destructuring into Function Parameter
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    logDetails(user); // Alex is 43 year(s) old!
+
+    function logDetails({name, age}) {
+        console.log(`${name} is ${age} year(s) old!`)
+    }
+}
+
+// 25. Destructure function return
+{
+    const getUser = () => {
+        return{ 
+            'name': 'Alex',
+            'address': '15th Park Avenue',
+            'age': 43
+        }
+    }
+
+    const { name, address, age } = getUser();
+
+    console.log(name, age, address);
+}
+
+// 26. Destructuring in loops
+{
+    const users = [{ 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    },
+    { 
+        'name': 'Bob',
+        'address': 'Canada',
+        'age': 53
+    },
+    { 
+        'name': 'Carl',
+        'address': 'Bangalore',
+        'age': 26
+    }];
+
+    for(let { name, age } of users) {
+        console.log(name)
+    }
+}
+
+// 27. Destructure console.log 
+{
+    const { log, warn, error } = console;
+}
+
+// 28. Create a clone of an object
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const clone = {...user} // {name: "Alex", address: "15th Park Avenue", age: 43}
+
+    clone === user; // false
+}
+
+// 29. Add properties to an object in Immutable way
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const updatedUser = {...user, salary:12345}; // {name: "Alex", address: "15th Park Avenue", age: 43, salary: 12345}
+
+    console.log(user); // {name: "Alex", address: "15th Park Avenue", age: 43}
+}
+
+// 30. Update an object in Immutable way
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const updatedUser = {...user, age:56}; // {name: "Alex", address: "15th Park Avenue", age: 56}
+
+    console.log(user); // {name: "Alex", address: "15th Park Avenue", age: 43}
+}
+
+// 31. Update Nested objects
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43,
+        'department':{
+            'name': 'Sales',
+            'Shift': 'Morning',
+            'address': {
+                'city': 'Bangalore',
+                'street': '7th Residency Rd',
+                'zip': 560001
+            }
+        }
+    }
+
+    {...user, department: {'number': 006}} // department replaced
+
+    {...user, department: {...user.department, 'number': 006}} // Right way
+}
+
+// 32. Combine two objects - Shallow Merge
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+
+    const department = {
+        'name': 'Sales',
+        'Shift': 'Morning'
+    }
+
+    const completeDetails = {...user, ...department};
+
+    console.log({completeDetails});
+}
+
+// 33. Rest operator in Object Destructuring
+{
+    const user = { 
+        'name': 'Alex',
+        'address': '15th Park Avenue',
+        'age': 43
+    }
+    
+    const {name, ...rest} = user;
+    console.log(name, rest);
+
+    const {age, ...rest} = user;
+    console.log(age, rest);
+}
 
         </script>
         <br />
