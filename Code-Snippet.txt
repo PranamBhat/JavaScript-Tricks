@@ -1,0 +1,93 @@
+1) Remove an item from the Array
+
+const array = [2, 5, 9];
+
+console.log(array); // [2, 5, 9]
+
+const index = array.indexOf(5);
+if (index > -1) {
+  array.splice(index, 1);
+}
+
+console.log(array); // [2, 9]
+
+2) 
+
+Scenario 1: [NO STRICT MODE]
+
+var city = "Chicago"
+console.log(city) // Prints the city name, i.e. Chicago
+Scenario 2: [NO STRICT MODE]
+
+city = "Chicago"
+console.log(city) // Prints the city name, i.e. Chicago
+
+Scenario 3: [STRICT MODE]
+
+'use strict';
+
+city = "Chicago"
+console.log(city) // Reference Error: asignment is undeclared variable city.
+
+
+3) A closure is a pairing of:
+
+A function, and
+A reference to that function's outer scope (lexical environment)
+A lexical environment is part of every execution context (stack frame) and is a map between identifiers (ie. local variable names) and values.
+
+Every function in JavaScript maintains a reference to its outer lexical environment. This reference is used to configure the execution context created when a function is invoked. This reference enables code inside the function to "see" variables declared outside the function, regardless of when and where the function is called.
+
+If a function was called by a function, which in turn was called by another function, then a chain of references to outer lexical environments is created. This chain is called the scope chain.
+
+In the following code, inner forms a closure with the lexical environment of the execution context created when foo is invoked, closing over variable secret:
+
+
+function foo() {
+  const secret = Math.trunc(Math.random()*100)
+  return function inner() {
+    console.log(`The secret number is ${secret}.`)
+  }
+}
+const f = foo() // `secret` is not directly accessible from outside `foo`
+f() // The only way to retrieve `secret`, is to invoke `f`
+
+
+4) To check whether a string contains a substring:
+
+const string = "foo";
+const substring = "oo";
+
+console.log(string.includes(substring)); // true
+
+
+5) 
+
+const sentence = 'The quick brown fox jumps over the lazy dog.';
+
+const word = 'fox';
+
+console.log(`The word "${word}" ${sentence.includes(word) ? 'is' : 'is not'} in the sentence`); // "The word "fox" is in the sentence"
+
+
+6) Remove a property from a JavaScript object:
+
+delete myObject.regex;
+// or,
+delete myObject['regex'];
+// or,
+var prop = "regex";
+delete myObject[prop];
+----------------------
+
+ar myObject = {
+    "ircEvent": "PRIVMSG",
+    "method": "newURI",
+    "regex": "^http://.*"
+};
+delete myObject.regex;
+
+console.log(myObject); // {"ircEvent": "PRIVMSG",  "method": "newURI"}
+
+7) 
+
