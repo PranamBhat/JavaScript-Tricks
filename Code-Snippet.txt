@@ -91,3 +91,97 @@ console.log(myObject); // {"ircEvent": "PRIVMSG",  "method": "newURI"}
 
 7) 
 
+'' == '0'           // false
+0 == ''             // true
+0 == '0'            // true
+
+false == 'false'    // false
+false == '0'        // true
+
+false == undefined  // false
+false == null       // false
+null == undefined   // true
+
+' \t\r\n ' == 0     // true
+
+== operator just compares the values not datatype.
+
+=== operator compare the values with comparison of its datatype.
+
+Example :
+
+1 == "1" //true
+
+1 === "1" //false
+
+
+8) "let" and "var" difference :
+
+function run() {
+  var foo = "Foo";
+  let bar = "Bar";
+
+  console.log(foo, bar); // Foo Bar
+
+  {
+    var moo = "Mooo"
+    let baz = "Bazz";
+    console.log(moo, baz); // Mooo Bazz
+  }
+
+  console.log(moo); // Mooo
+  console.log(baz); // ReferenceError
+}
+
+run();
+
+------------------------------------
+
+function run() {
+  console.log(foo); // undefined
+  var foo = "Foo";
+  console.log(foo); // Foo
+}
+
+run();function checkHoisting() {
+  console.log(foo); // ReferenceError
+  let foo = "Foo";
+  console.log(foo); // Foo
+}
+
+checkHoisting();
+
+---------------------------------------
+
+function checkHoisting() {
+  console.log(foo); // ReferenceError
+  let foo = "Foo";
+  console.log(foo); // Foo
+}
+
+checkHoisting();
+
+9) 
+
+var a = ["a", "b", "c"];
+a.forEach(function(entry) {
+    console.log(entry); // a b c
+});
+
+
+10) Check whether "Checkbox" is checked or not:
+
+$("#isAgeSelected").on('change', function() {
+  if ($("#isAgeSelected").is(':checked'))
+    alert("checked");
+  else {
+    alert("unchecked");
+  }
+});
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<input type="checkbox" id="isAgeSelected" />
+<div id="txtAge" style="display:none">
+  Age is selected
+</div>
+
+
